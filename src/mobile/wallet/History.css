@@ -1,0 +1,295 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+.history-container {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: #f8fafc;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.history-container * {
+  box-sizing: border-box;
+}
+
+/* Animations */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.4s ease backwards;
+  animation-delay: var(--delay, 0s);
+}
+
+/* Header */
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px;
+  background: #f8fafc;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid #e2e8f0;
+  flex-shrink: 0;
+}
+
+.history-back-btn {
+  width: 40px;
+  height: 40px;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  color: #1e293b;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+  transition: all 0.2s ease;
+}
+
+.history-back-btn:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  transform: translateX(-2px);
+}
+
+.history-header h2 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin: 0;
+  color: #0f172a;
+}
+
+/* Main Content */
+.history-main {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* Loading State */
+.history-loading {
+  text-align: center;
+  padding: 40px 20px;
+  color: #64748b;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* Empty State */
+.history-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  color: #94a3b8;
+  text-align: center;
+}
+
+.history-empty i {
+  font-size: 3.5rem;
+  margin-bottom: 16px;
+  opacity: 0.4;
+}
+
+.history-empty p {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #64748b;
+}
+
+/* Transaction List */
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-bottom: 20px;
+}
+
+/* Transaction Item */
+.history-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 14px;
+  background: #ffffff;
+  padding: 18px;
+  border-radius: 18px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  border: 1px solid #f1f5f9;
+  transition: all 0.3s ease;
+  animation: slideUp 0.3s ease backwards;
+}
+
+.history-item:hover {
+  background: #fcfcfc;
+  border-color: #e2e8f0;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  transform: translateY(-2px);
+}
+
+/* Icon Circle */
+.history-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.history-item:hover .history-icon {
+  transform: scale(1.05);
+}
+
+.history-icon.plus {
+  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+  color: #047857;
+  border: 1px solid #a7f3d0;
+}
+
+.history-icon.minus {
+  background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%);
+  color: #be123c;
+  border: 1px solid #fecdd3;
+}
+
+.history-icon.pending {
+  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+  color: #d97706;
+  border: 1px solid #fde68a;
+}
+
+/* Transaction Details */
+.history-details {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.history-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.history-details h4 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0f172a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.history-details p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.history-status {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: 999px;
+  margin-top: 2px;
+}
+
+.history-status.pending {
+  background: #fffbeb;
+  color: #b45309;
+}
+
+.history-status.approved,
+.history-status.completed {
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.history-status.rejected {
+  background: #fff1f2;
+  color: #be123c;
+}
+
+.history-ref {
+  font-size: 0.75rem !important;
+  color: #94a3b8 !important;
+  margin-top: 2px !important;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  background: #f8fafc;
+  padding: 2px 6px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+/* Transaction Amount */
+.history-amount {
+  font-size: 1.05rem;
+  font-weight: 800;
+  white-space: nowrap;
+  letter-spacing: -0.3px;
+}
+
+.history-amount.positive {
+  color: #047857;
+}
+
+.history-amount.negative {
+  color: #be123c;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .history-header {
+    padding: 20px;
+    max-width: 100%;
+  }
+  
+  .history-main {
+    padding: 16px;
+  }
+  
+  .history-item {
+    padding: 16px;
+    gap: 12px;
+  }
+  
+  .history-icon {
+    width: 46px;
+    height: 46px;
+    font-size: 1.25rem;
+  }
+  
+  .history-details h4 {
+    font-size: 0.9rem;
+  }
+  
+  .history-amount {
+    font-size: 0.95rem;
+  }
+}

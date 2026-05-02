@@ -1,0 +1,188 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+
+.email-login-container {
+    height: 100vh;
+    height: 100svh;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    overflow: hidden;
+    position: relative;
+    font-family: 'Montserrat', sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+/* Header with Gradient Oval Shape */
+.header-decoration {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 60%;
+    height: 250px; /* Adjust based on image ratio */
+    overflow: visible;
+}
+
+.gradient-oval {
+    position: absolute;
+    top: -40px;
+    left: -40px;
+    width: 320px;
+    height: 380px;
+    background: linear-gradient(135deg, #4A7BFF 0%, #1A4FA0 100%);
+    border-radius: 0 0 100% 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 90px;
+    z-index: 1;
+    box-shadow: 0 10px 30px rgba(26, 79, 160, 0.2);
+}
+
+.login-title {
+    color: #ffffff;
+    font-size: 2.8rem;
+    font-weight: 800;
+    margin: 0;
+    padding-top: 20px;
+}
+
+/* Main Form Layout */
+.login-form-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    z-index: 2;
+    margin-top: -40px;
+}
+
+.login-form {
+    width: 100%;
+    max-width: 350px;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Input Fields with Border Label */
+.input-group {
+    position: relative;
+    width: 100%;
+}
+
+.input-label {
+    position: absolute;
+    top: -10px;
+    left: 40px;
+    background-color: #ffffff;
+    padding: 0 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #1a4fa0;
+    z-index: 5;
+    text-transform: capitalize;
+}
+
+.login-input {
+    width: 100%;
+    height: 56px;
+    border: 2px solid #1a4fa0;
+    border-radius: 12px;
+    padding: 0 20px;
+    font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    outline: none;
+    background: transparent;
+    color: #333;
+}
+
+.password-input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.password-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    background: #1a4fa0;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.password-icon i {
+    color: #ffffff;
+    font-size: 1rem;
+}
+
+/* Login Button */
+.login-submit-btn {
+    width: 100%;
+    height: 56px;
+    background-color: #1a4fa0;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.25rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+    text-transform: lowercase;
+}
+
+.login-submit-btn:hover {
+    background-color: #15428a;
+    box-shadow: 0 8px 20px rgba(26, 79, 160, 0.3);
+}
+
+.login-submit-btn:active {
+    transform: scale(0.98);
+}
+
+/* Signup Footer */
+.signup-footer {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.signup-footer p {
+    color: #333;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+.signup-link {
+    background: none;
+    border: none;
+    color: #333;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 5px;
+    text-decoration: underline;
+}
+
+.signup-link:hover {
+    color: #1a4fa0;
+}
+
+/* Base adjustment for mobile-first */
+@media (max-width: 400px) {
+    .gradient-oval {
+        width: 250px;
+        height: 300px;
+    }
+    .login-title {
+        font-size: 2.2rem;
+    }
+}

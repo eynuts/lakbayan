@@ -1,0 +1,473 @@
+.mrd-container {
+    font-family: var(--font-montserrat);
+    background: #f8fafc;
+    min-height: 100vh;
+    max-width: 480px;
+    margin: 0 auto;
+    padding-bottom: 98px;
+    color: #0f172a;
+}
+
+.mrd-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+}
+
+.mrd-header h1 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 800;
+    font-family: var(--font-playfair);
+    letter-spacing: -0.01em;
+}
+
+.mrd-back {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    background: #fff;
+    color: #0a84ff;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+}
+
+.mrd-main {
+    padding: 20px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Welcome Section */
+.mrd-welcome {
+    background: linear-gradient(135deg, #0a84ff 0%, #2f9bff 50%, #5ec6ff 100%);
+    border-radius: 24px;
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    box-shadow: 0 12px 32px rgba(10, 132, 255, 0.2);
+}
+
+.mrd-welcome-content h2 {
+    margin: 0 0 4px 0;
+    font-size: 1.3rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+}
+
+.mrd-welcome-content p {
+    margin: 0;
+    font-size: 0.85rem;
+    font-weight: 600;
+    opacity: 0.95;
+}
+
+.mrd-welcome-icon {
+    width: 52px;
+    height: 52px;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 16px;
+    display: grid;
+    place-items: center;
+    font-size: 1.8rem;
+    backdrop-filter: blur(4px);
+}
+
+/* Stats Section */
+.mrd-stats-section {
+    width: 100%;
+}
+
+/* Stats Grid */
+.mrd-stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.mrd-stat-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border: 1px solid rgba(148, 163, 184, 0.12);
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+    transition: all 0.3s ease;
+}
+
+.mrd-stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.1);
+}
+
+.mrd-stat-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.mrd-stat-label {
+    margin: 0;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.mrd-stat-value {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.02em;
+}
+
+.mrd-stat-footer {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.mrd-stat-confirmed {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #10b981;
+}
+
+.mrd-stat-confirmed i {
+    font-size: 0.7rem;
+}
+
+.mrd-stat-pending {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #f59e0b;
+}
+
+.mrd-stat-pending i {
+    font-size: 0.7rem;
+}
+
+.mrd-stat-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    display: grid;
+    place-items: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.mrd-stat-icon.rev {
+    background: linear-gradient(135deg, #059669, #10b981);
+    color: #fff;
+}
+
+.mrd-stat-icon.bookings {
+    background: linear-gradient(135deg, #0a84ff, #4d9bff);
+    color: #fff;
+}
+
+.mrd-stat-info p {
+    margin: 0 0 4px 0;
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.mrd-stat-info h3 {
+    margin: 0 0 2px 0;
+    font-size: 1.4rem;
+    font-weight: 800;
+}
+
+.mrd-stat-info small {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #94a3b8;
+}
+
+/* Card */
+.mrd-card {
+    background: #fff;
+    border-radius: 28px;
+    padding: 20px;
+    border: 1px solid rgba(148, 163, 184, 0.15);
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+}
+
+.mrd-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.mrd-card-header h3 {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 800;
+}
+
+.mrd-badge {
+    background: #f1f5f9;
+    color: #64748b;
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 999px;
+}
+
+/* List Items */
+.mrd-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.mrd-item {
+    background: #f8fafc;
+    border-radius: 20px;
+    padding: 16px;
+    border: 1px solid #f1f5f9;
+}
+
+.mrd-item-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 14px;
+}
+
+.mrd-item-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.mrd-user-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: #edf2f7;
+    color: #64748b;
+    display: grid;
+    place-items: center;
+    font-size: 0.9rem;
+}
+
+.mrd-item-user h4 {
+    margin: 0;
+    font-size: 0.88rem;
+    font-weight: 800;
+}
+
+.mrd-item-user p {
+    margin: 0;
+    font-size: 0.7rem;
+    color: #64748b;
+    font-weight: 600;
+}
+
+.mrd-status-pill {
+    font-size: 0.62rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    border-radius: 6px;
+    letter-spacing: 0.04em;
+}
+
+.mrd-status-pill.pending { background: #fffbeb; color: #b45309; }
+.mrd-status-pill.confirmed { background: #ecfdf5; color: #065f46; }
+
+.mrd-item-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding-top: 14px;
+    border-top: 1px dashed #e2e8f0;
+}
+
+.mrd-detail {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.72rem;
+    color: #475569;
+    font-weight: 600;
+}
+
+.mrd-detail i {
+    color: #94a3b8;
+    width: 14px;
+}
+
+.mrd-detail.mrd-price {
+    grid-column: span 2;
+    justify-content: flex-end;
+    font-size: 0.88rem;
+    color: #0b5ed7;
+}
+
+.mrd-empty {
+    padding: 40px 20px;
+    text-align: center;
+    color: #94a3b8;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.mrd-empty-list {
+    text-align: center;
+    padding: 40px 0;
+    color: #cbd5e1;
+}
+
+.mrd-empty-list i {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+}
+
+/* Action Section */
+.mrd-action-section {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.mrd-action-title {
+    margin: 0 0 4px 0;
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #0f172a;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.mrd-action-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+}
+
+.mrd-action-btn {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 18px;
+    background: #fff;
+    border: 1.5px solid rgba(148, 163, 184, 0.15);
+    border-radius: 18px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 16px rgba(15, 23, 42, 0.05);
+    font-size: 0.9rem;
+    font-family: var(--font-montserrat);
+}
+
+.mrd-action-btn:active {
+    transform: scale(0.98);
+}
+
+.mrd-action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.1);
+    border-color: rgba(10, 132, 255, 0.25);
+}
+
+.mrd-action-btn.reservations-btn:hover {
+    background: linear-gradient(135deg, rgba(10, 132, 255, 0.03), rgba(10, 132, 255, 0.06));
+}
+
+.mrd-action-btn.revenue-btn:hover {
+    background: linear-gradient(135deg, rgba(5, 150, 105, 0.03), rgba(16, 185, 129, 0.06));
+}
+
+.mrd-action-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: grid;
+    place-items: center;
+    font-size: 1.2rem;
+    color: #fff;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.reservations-btn .mrd-action-icon {
+    background: linear-gradient(135deg, #0a84ff, #4d9bff);
+}
+
+.revenue-btn .mrd-action-icon {
+    background: linear-gradient(135deg, #059669, #10b981);
+}
+
+.mrd-action-btn:hover .mrd-action-icon {
+    transform: scale(1.1);
+}
+
+.mrd-action-text {
+    flex: 1;
+    text-align: left;
+}
+
+.mrd-action-text h4 {
+    margin: 0 0 2px 0;
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.01em;
+}
+
+.mrd-action-text p {
+    margin: 0;
+    font-size: 0.75rem;
+    color: #64748b;
+    font-weight: 600;
+}
+
+.mrd-action-arrow {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: #f1f5f9;
+    display: grid;
+    place-items: center;
+    color: #cbd5e1;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.mrd-action-btn:hover .mrd-action-arrow {
+    background: rgba(10, 132, 255, 0.15);
+    color: #0a84ff;
+}
+
+.mrd-empty-list p {
+    font-size: 0.85rem;
+    font-weight: 600;
+}

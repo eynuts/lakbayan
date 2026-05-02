@@ -1,0 +1,443 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+.mb-container {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: #f8fafc;
+    min-height: 100vh;
+    max-width: 480px;
+    margin: 0 auto;
+    color: #0f172a;
+    padding-bottom: 100px;
+    overflow-x: hidden;
+}
+
+.mb-container * {
+    box-sizing: border-box;
+}
+
+/* Animations */
+@keyframes mbSlideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+.animate-slide-up { animation: mbSlideUp 0.4s ease backwards; animation-delay: var(--delay, 0s); }
+
+/* Header */
+.mb-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    background: #ffffff;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 480px;
+    z-index: 100;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+}
+
+.mb-back-btn {
+    width: 40px;
+    height: 40px;
+    background: #f1f5f9;
+    border: none;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    color: #1e293b;
+    cursor: pointer;
+}
+
+.mb-header h2 {
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin: 0;
+}
+
+/* Room Summary Card */
+.mb-summary {
+    padding: 100px 24px 20px;
+}
+
+.mb-summary-card {
+    display: flex;
+    background: #ffffff;
+    padding: 12px;
+    border-radius: 20px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.04);
+    gap: 16px;
+    align-items: center;
+}
+
+.mb-summary-card img {
+    width: 80px;
+    height: 80px;
+    border-radius: 14px;
+    object-fit: cover;
+}
+
+.mb-summary-info {
+    flex: 1;
+}
+
+.mb-summary-badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 800;
+    color: #2563eb;
+    background: #eff6ff;
+    padding: 4px 10px;
+    border-radius: 8px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.mb-summary-info h3 {
+    margin: 0 0 4px 0;
+    font-size: 1.1rem;
+    font-weight: 800;
+}
+
+.mb-summary-price {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 800;
+    color: #0f172a;
+}
+.mb-summary-price span {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #64748b;
+}
+
+/* Sections */
+.mb-main {
+    padding: 0 24px;
+}
+
+.mb-section {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+}
+
+.mb-section-title {
+    margin: 0 0 16px 0;
+    font-size: 1.05rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #1e293b;
+}
+
+.mb-section-title i {
+    color: #2563eb;
+    background: #eff6ff;
+    padding: 8px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+}
+
+/* Forms */
+.mb-input-group {
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.mb-input-group label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #475569;
+    margin-bottom: 8px;
+}
+
+.mb-input-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+}
+
+.mb-date-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+}
+
+.mb-input-group input {
+    width: 100%;
+    background: #f8fafc;
+    border: 1.5px solid #e2e8f0;
+    padding: 14px;
+    border-radius: 14px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: #0f172a;
+    transition: border-color 0.2s;
+}
+
+.mb-input-group input:focus {
+    outline: none;
+    border-color: #2563eb;
+    background: #ffffff;
+}
+
+/* Date Picker Overrides */
+.mb-date-input {
+    position: relative;
+}
+
+.mb-date-input i {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #64748b;
+    z-index: 2;
+}
+
+.mb-date-input .react-datepicker-wrapper {
+    width: 100%;
+}
+
+.mb-date-input input {
+    width: 100%;
+    padding-left: 40px;
+    background: #f8fafc;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 14px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    box-sizing: border-box;
+}
+
+/* Custom Select */
+.mb-select-wrapper {
+    position: relative;
+}
+
+.mb-select-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #64748b;
+}
+
+.mb-select-display {
+    width: 100%;
+    padding: 14px 40px;
+    background: #f8fafc;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 14px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: #0f172a;
+    display: flex;
+    align-items: center;
+}
+
+.mb-select-arrow {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #64748b;
+    pointer-events: none;
+}
+
+/* Payment Summary */
+.mb-payment-summary {
+    background: #eff6ff;
+    border: 1.5px solid #bfdbfe;
+}
+
+.mb-payment-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    font-size: 0.9rem;
+    color: #475569;
+}
+
+.mb-total {
+    margin-top: 8px;
+    padding-top: 16px;
+    border-top: 1px dashed #93c5fd;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #1e3a8a;
+}
+
+.mb-total span:last-child {
+    color: #2563eb;
+}
+
+.mb-payment-note {
+    margin: 16px 0 0 0;
+    font-size: 0.75rem;
+    color: #64748b;
+    text-align: center;
+}
+
+/* Sticky Bottom Action */
+.mb-bottom-action {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    max-width: 480px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 20px 24px;
+    background: #ffffff;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.05);
+    z-index: 100;
+}
+
+.mb-submit-btn {
+    width: 100%;
+    padding: 16px;
+    background: #2563eb;
+    color: #ffffff;
+    border: none;
+    border-radius: 16px;
+    font-family: inherit;
+    font-size: 1.05rem;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+}
+
+/* Modal Styles */
+.mb-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.4);
+    z-index: 200;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.mb-modal-content {
+    background: #ffffff;
+    width: 100%;
+    max-width: 480px;
+    border-radius: 32px 32px 0 0;
+    padding: 24px;
+    box-shadow: 0 -10px 40px rgba(0,0,0,0.1);
+}
+
+.mb-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.mb-modal-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 800;
+}
+
+.mb-close-btn {
+    width: 36px;
+    height: 36px;
+    background: #f1f5f9;
+    border: none;
+    border-radius: 50%;
+    color: #475569;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.mb-guests-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.mb-guest-btn {
+    padding: 14px;
+    background: #f8fafc;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 16px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #475569;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.mb-guest-btn.active {
+    background: #eff6ff;
+    border-color: #2563eb;
+    color: #2563eb;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
+}
+
+/* Guests Counter UI */
+.mb-guests-counter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f8fafc;
+    padding: 16px;
+    border-radius: 20px;
+    border: 1.5px solid #e2e8f0;
+    margin: 10px 0 20px;
+}
+
+.mb-counter-btn {
+    width: 54px;
+    height: 54px;
+    border-radius: 16px;
+    border: none;
+    background: #ffffff;
+    color: #2563eb;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s;
+}
+
+.mb-counter-btn:active {
+    transform: scale(0.9);
+    background: #eff6ff;
+}
+
+.mb-counter-value {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.mb-counter-value span {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.mb-counter-value small {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+}
