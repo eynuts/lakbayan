@@ -4,6 +4,7 @@ import { useAuth } from '../../AuthContext'
 import { ref, push, get } from 'firebase/database'
 import { db } from '../../firebase'
 import './TopUp.css'
+import qrImage from '../../assets/images/qr.png'
 
 const TopUp = () => {
   const { user, manualUser } = useAuth()
@@ -77,7 +78,7 @@ const TopUp = () => {
       <section className="topup-qr-section">
         <div className="topup-qr-card">
           <p className="topup-qr-label">Scan to Pay</p>
-          <img src="/src/assets/images/qr.png" alt="QR Code" className="topup-qr-image" />
+          <img src={qrImage} alt="QR Code" className="topup-qr-image" />
           <p className="topup-qr-instruction">Use GCash to Pay</p>
         </div>
       </section>

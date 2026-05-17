@@ -286,6 +286,44 @@
     text-align: center;
 }
 
+/* Computation rows — indented math steps */
+.mb-computation {
+    padding-left: 12px;
+    font-size: 0.82rem;
+    color: #64748b;
+    font-style: italic;
+    border-left: 3px solid #bfdbfe;
+    margin-left: 4px;
+}
+
+/* Discount rows — highlighted in green */
+.mb-discount-row {
+    background: #f0fdf4;
+    border-radius: 8px;
+    padding: 7px 10px !important;
+    margin: 2px 0;
+    font-size: 0.84rem;
+}
+
+.mb-discount-val {
+    color: #16a34a !important;
+    font-weight: 700;
+}
+
+/* Subtotal row — bolded intermediate total */
+.mb-subtotal-row {
+    border-top: 1px dashed #cbd5e1;
+    margin-top: 4px;
+    padding-top: 8px !important;
+    color: #1e293b;
+}
+
+/* Divider before grand total */
+.mb-payment-divider {
+    border-top: 2px solid #93c5fd;
+    margin: 8px 0 4px;
+}
+
 /* Sticky Bottom Action */
 .mb-bottom-action {
     position: fixed;
@@ -440,4 +478,275 @@
     font-weight: 700;
     color: #64748b;
     text-transform: uppercase;
+}
+
+/* Guest Type Breakdown */
+.mb-guest-types {
+    margin-top: 4px;
+    background: #f8fafc;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.mb-guest-types-label {
+    margin: 0;
+    padding: 12px 16px 8px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #475569;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.mb-guest-types-hint {
+    font-weight: 500;
+    color: #94a3b8;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+.mb-guest-type-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid #f1f5f9;
+    transition: background 0.15s;
+}
+
+.mb-guest-type-row:last-child {
+    border-bottom: none;
+}
+
+.mb-guest-type-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.mb-guest-type-info > i {
+    width: 34px;
+    height: 34px;
+    background: #eff6ff;
+    color: #2563eb;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+
+.mb-guest-type-info > div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.mb-guest-type-name {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.mb-guest-type-desc {
+    font-size: 0.72rem;
+    color: #64748b;
+    font-weight: 500;
+}
+
+.mb-guest-type-counter {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.mb-gt-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    border: 1.5px solid #e2e8f0;
+    background: #ffffff;
+    color: #2563eb;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.mb-gt-btn:active {
+    transform: scale(0.88);
+    background: #eff6ff;
+    border-color: #2563eb;
+}
+
+.mb-gt-count {
+    min-width: 24px;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+/* Day Tour Box */
+.mb-daytour-box {
+    margin-top: 12px;
+    background: linear-gradient(135deg, #fffbeb, #fef3c7);
+    border: 1.5px solid #fcd34d;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.mb-daytour-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    gap: 12px;
+}
+
+.mb-daytour-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    min-width: 0;
+}
+
+.mb-daytour-title-wrap > i {
+    width: 36px;
+    height: 36px;
+    background: #f59e0b;
+    color: #fff;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+    flex-shrink: 0;
+}
+
+.mb-daytour-title-wrap > div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.mb-daytour-title {
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: #78350f;
+}
+
+.mb-daytour-rate {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #92400e;
+}
+
+.mb-daytour-subtotal {
+    margin: 0;
+    padding: 8px 16px 12px;
+    font-size: 0.82rem;
+    color: #92400e;
+    border-top: 1px dashed #fcd34d;
+    text-align: right;
+}
+
+.mb-daytour-subtotal strong {
+    color: #78350f;
+    font-weight: 800;
+}
+
+/* Day tour counter uses amber tones */
+.mb-daytour-header .mb-gt-btn {
+    border-color: #fcd34d;
+    color: #d97706;
+}
+
+.mb-daytour-header .mb-gt-btn:active {
+    background: #fef3c7;
+    border-color: #f59e0b;
+}
+
+.mb-daytour-header .mb-gt-count {
+    color: #78350f;
+}
+
+/* Discount badge under guest type name */
+.mb-guest-discount-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 3px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #16a34a;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 6px;
+    padding: 2px 7px;
+}
+
+.mb-guest-discount-badge i {
+    font-size: 0.6rem;
+}
+
+/* Step labels in Payment Details */
+.mb-calc-step-label {
+    font-size: 0.68rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: #2563eb;
+    background: #eff6ff;
+    border-radius: 6px;
+    padding: 3px 8px;
+    display: inline-block;
+    margin-bottom: 4px;
+}
+
+/* Detailed discount row — stacked label + formula on left, value on right */
+.mb-discount-detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f0fdf4;
+    border-radius: 10px;
+    padding: 8px 12px !important;
+    margin: 3px 0;
+    gap: 8px;
+}
+
+.mb-discount-detail-left {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+}
+
+.mb-discount-type-name {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.mb-discount-formula {
+    font-size: 0.75rem;
+    color: #64748b;
+    font-style: italic;
+}
+
+/* No-discount label */
+.mb-no-discount-val {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #94a3b8;
+    white-space: nowrap;
 }

@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import DatePicker from 'react-datepicker'
+import { ref, onValue } from 'firebase/database'
+import { db } from '../../firebase'
 import 'react-datepicker/dist/react-datepicker.css'
 import './Booking.css'
 
@@ -11,6 +13,11 @@ const Booking = () => {
   const [room, setRoom] = useState(location.state?.room || null)
   const [resortId, setResortId] = useState(location.state?.resortId || '')
   const [resortName, setResortName] = useState(location.state?.resortName || '')
+  const [entranceFee, setEntranceFee] = useState(() => {
+    const parsed = parseFloat(location.state?.entranceFee || 0)
+    return Number.isFinite(parsed) ? parsed : 0
+  })
+  const [discountSettings, setDiscountSettings] = useState(location.state?.discountSettings || {})
   const [showGuestsModal, setShowGuestsModal] = useState(false)
   const [formData, setFormData] = useState({
     firstName: '',
@@ -22,6 +29,23 @@ const Booking = () => {
     guests: location.state?.room ? (location.state.room.capacity.match(/\d+/)?.[0] || '1') : '1',
     specialRequests: ''
   })
+  const [guestTypes, setGuestTypes] = useState({ matanda: 0, bata: 0, pwd: 0 })
+  const [dayTour, setDayTour] = useState(0)
+
+  // Clamp guestTypes so their sum never exceeds newMax
+  const clampGuestTypes = (newMax) => {
+    setGuestTypes(prev => {
+      let { matanda, bata, pwd } = prev
+      // reduce in order if total exceeds newMax
+      const total = matanda + bata + pwd
+      if (total <= newMax) return prev
+      let excess = total - newMax
+      pwd    = Math.max(0, pwd    - excess); excess = Math.max(0, excess - prev.pwd)
+      bata   = Math.max(0, bata   - excess); excess = Math.max(0, excess - prev.bata)
+      matanda = Math.max(0, matanda - excess)
+      return { matanda, bata, pwd }
+    })
+  }
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -30,6 +54,31 @@ const Booking = () => {
       navigate('/rooms')
     }
   }, [room, navigate])
+
+  useEffect(() => {
+    if (!resortId) return
+
+    const resortRef = ref(db, `resortApplications/${resortId}`)
+    const unsubscribe = onValue(resortRef, (snapshot) => {
+      if (!snapshot.exists()) return
+      const item = snapshot.val() || {}
+      const profile = item?.resortProfile || {}
+
+      if (item?.resortName) {
+        setResortName(item.resortName)
+      }
+
+      const parsedEntranceFee = parseFloat(profile?.entranceFee || 0)
+      if (Number.isFinite(parsedEntranceFee) && parsedEntranceFee > 0) {
+        setEntranceFee(parsedEntranceFee)
+      }
+
+      const nextDiscounts = profile?.discountSettings || {}
+      setDiscountSettings(nextDiscounts)
+    })
+
+    return () => unsubscribe()
+  }, [resortId])
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -53,23 +102,49 @@ const Booking = () => {
     return diffDays || 1 // Minimum 1 night if dates are selected
   }
 
+  const dayTourCost = dayTour * entranceFee
+
+  // Peso discount per guest type (from resort settings)
+  const matandaDiscountPeso = parseFloat(discountSettings?.matanda || 0)
+  const bataDiscountPeso    = parseFloat(discountSettings?.bata    || 0)
+  const pwdDiscountPeso     = parseFloat(discountSettings?.pwd     || 0)
+
+  // Total peso discount = count × peso-off per guest
+  const matandaDiscountTotal = guestTypes.matanda * matandaDiscountPeso
+  const bataDiscountTotal    = guestTypes.bata    * bataDiscountPeso
+  const pwdDiscountTotal     = guestTypes.pwd     * pwdDiscountPeso
+  const totalDiscount        = matandaDiscountTotal + bataDiscountTotal + pwdDiscountTotal
+
   const handleSubmit = (e) => {
     e.preventDefault()
     if (!formData.checkIn || !formData.checkOut) {
       alert('Please select check-in and check-out dates.')
       return
     }
-    
+
     const nights = calculateNights()
-    const totalPrice = room.price * nights
-    
-    // In a real app, this goes to payment or processes the booking
+    const roomSubtotal = room.price * nights
+    const totalPrice = Math.max(0, roomSubtotal - totalDiscount) + dayTourCost
+
     const bookingData = {
       room,
       resortId,
       resortName,
       ...formData,
+      guestTypes,
+      dayTour,
+      entranceFee,
+      dayTourCost,
+      discountSettings,
+      matandaDiscountPeso,
+      bataDiscountPeso,
+      pwdDiscountPeso,
+      matandaDiscountTotal,
+      bataDiscountTotal,
+      pwdDiscountTotal,
+      totalDiscount,
       nights,
+      roomSubtotal,
       totalPrice,
       depositAmount: totalPrice
     }
@@ -161,6 +236,99 @@ const Booking = () => {
                 <i className="fas fa-chevron-down mb-select-arrow"></i>
               </div>
             </div>
+
+            {/* Guest Type Breakdown */}
+            <div className="mb-guest-types">
+              <p className="mb-guest-types-label">Guest Type Breakdown <span className="mb-guest-types-hint">(optional)</span></p>
+              {[
+                { key: 'matanda', label: 'Matanda', icon: 'fa-person', desc: 'Senior Citizen', discountPeso: matandaDiscountPeso },
+                { key: 'bata',    label: 'Bata',    icon: 'fa-child',   desc: 'Children',       discountPeso: bataDiscountPeso },
+                { key: 'pwd',     label: 'PWD',      icon: 'fa-wheelchair', desc: 'Persons w/ Disability', discountPeso: pwdDiscountPeso }
+              ].map(({ key, label, icon, desc, discountPeso }) => {
+                const totalGuests = parseInt(formData.guests) || 0
+                const currentTotal = guestTypes.matanda + guestTypes.bata + guestTypes.pwd
+                const atMax = currentTotal >= totalGuests
+                return (
+                  <div key={key} className="mb-guest-type-row">
+                    <div className="mb-guest-type-info">
+                      <i className={`fas ${icon}`}></i>
+                      <div>
+                        <span className="mb-guest-type-name">{label}</span>
+                        <span className="mb-guest-type-desc">{desc}</span>
+                        {discountPeso > 0 && (
+                          <span className="mb-guest-discount-badge">
+                            <i className="fas fa-tag"></i> {formatPrice(discountPeso)} off / person
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    <div className="mb-guest-type-counter">
+                      <button
+                        type="button"
+                        className="mb-gt-btn"
+                        onClick={() => setGuestTypes(prev => ({ ...prev, [key]: Math.max(0, prev[key] - 1) }))}
+                      >
+                        <i className="fas fa-minus"></i>
+                      </button>
+                      <span className="mb-gt-count">{guestTypes[key]}</span>
+                      <button
+                        type="button"
+                        className="mb-gt-btn"
+                        onClick={() => {
+                          if (!atMax) setGuestTypes(prev => ({ ...prev, [key]: prev[key] + 1 }))
+                        }}
+                        disabled={atMax}
+                        style={atMax ? { opacity: 0.35, cursor: 'not-allowed' } : {}}
+                      >
+                        <i className="fas fa-plus"></i>
+                      </button>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+
+            {/* Day Tour */}
+            <div className="mb-daytour-box">
+              <div className="mb-daytour-header">
+                <div className="mb-daytour-title-wrap">
+                  <i className="fas fa-sun"></i>
+                  <div>
+                    <span className="mb-daytour-title">Day Tour</span>
+                    <span className="mb-daytour-rate">
+                      {entranceFee > 0 ? `${formatPrice(entranceFee)} / person` : 'Rate based on entrance fee'}
+                    </span>
+                  </div>
+                </div>
+                <div className="mb-guest-type-counter">
+                  <button
+                    type="button"
+                    className="mb-gt-btn"
+                    onClick={() => setDayTour(prev => Math.max(0, prev - 1))}
+                  >
+                    <i className="fas fa-minus"></i>
+                  </button>
+                  <span className="mb-gt-count">{dayTour}</span>
+                  <button
+                    type="button"
+                    className="mb-gt-btn"
+                    onClick={() => setDayTour(prev => prev + 1)}
+                  >
+                    <i className="fas fa-plus"></i>
+                  </button>
+                </div>
+              </div>
+              {dayTour > 0 && entranceFee > 0 && (
+                <p className="mb-daytour-subtotal">
+                  {dayTour} × {formatPrice(entranceFee)} = <strong>{formatPrice(dayTourCost)}</strong>
+                </p>
+              )}
+              {dayTour > 0 && entranceFee <= 0 && (
+                <p className="mb-daytour-subtotal" style={{ color: '#92400e' }}>
+                  {dayTour} day tour guest{dayTour > 1 ? 's' : ''} — rate will be confirmed by resort
+                </p>
+              )}
+            </div>
           </div>
 
           {/* Guest Information */}
@@ -192,25 +360,122 @@ const Booking = () => {
           {/* Payment Summary */}
           <div className="mb-section mb-payment-summary">
             <h3 className="mb-section-title"><i className="fas fa-credit-card"></i> Payment Details</h3>
+
+            {/* ── STEP 1: Room rate × nights ── */}
+            <div className="mb-calc-step-label">Step 1 · Room Cost</div>
             <div className="mb-payment-row">
-              <span>Rate per night</span>
+              <span>Room rate per night</span>
               <span>{formatPrice(room.price)}</span>
             </div>
-            {calculateNights() > 0 && (
+            {calculateNights() > 0 ? (
               <>
-                <div className="mb-payment-row">
-                  <span>Number of nights</span>
-                  <span>{calculateNights()}</span>
+                <div className="mb-payment-row mb-computation">
+                  <span>✕ {calculateNights()} night{calculateNights() !== 1 ? 's' : ''}</span>
+                  <span>= {formatPrice(room.price * calculateNights())}</span>
                 </div>
-                <div className="mb-payment-row">
-                  <span>Total Price</span>
-                  <span>{formatPrice(room.price * calculateNights())}</span>
+                <div className="mb-payment-row mb-subtotal-row">
+                  <span><strong>Room Subtotal</strong></span>
+                  <span><strong>{formatPrice(room.price * calculateNights())}</strong></span>
+                </div>
+              </>
+            ) : (
+              <div className="mb-payment-row mb-computation">
+                <span>Select dates to compute nights</span>
+                <span>—</span>
+              </div>
+            )}
+
+            {/* ── STEP 2: Guest Discounts ── */}
+            {(guestTypes.matanda > 0 || guestTypes.bata > 0 || guestTypes.pwd > 0) && (
+              <>
+                <div className="mb-calc-step-label" style={{ marginTop: 12 }}>Step 2 · Guest Discounts</div>
+
+                {guestTypes.matanda > 0 && (
+                  <div className="mb-payment-row mb-discount-detail-row">
+                    <div className="mb-discount-detail-left">
+                      <span className="mb-discount-type-name">Matanda (Senior Citizen)</span>
+                      <span className="mb-discount-formula">
+                        {guestTypes.matanda} person{guestTypes.matanda > 1 ? 's' : ''} × {formatPrice(matandaDiscountPeso > 0 ? matandaDiscountPeso : 0)} off
+                      </span>
+                    </div>
+                    <span className={matandaDiscountPeso > 0 ? 'mb-discount-val' : 'mb-no-discount-val'}>
+                      {matandaDiscountPeso > 0 ? `− ${formatPrice(matandaDiscountTotal)}` : 'No discount'}
+                    </span>
+                  </div>
+                )}
+
+                {guestTypes.bata > 0 && (
+                  <div className="mb-payment-row mb-discount-detail-row">
+                    <div className="mb-discount-detail-left">
+                      <span className="mb-discount-type-name">Bata (Children)</span>
+                      <span className="mb-discount-formula">
+                        {guestTypes.bata} person{guestTypes.bata > 1 ? 's' : ''} × {formatPrice(bataDiscountPeso > 0 ? bataDiscountPeso : 0)} off
+                      </span>
+                    </div>
+                    <span className={bataDiscountPeso > 0 ? 'mb-discount-val' : 'mb-no-discount-val'}>
+                      {bataDiscountPeso > 0 ? `− ${formatPrice(bataDiscountTotal)}` : 'No discount'}
+                    </span>
+                  </div>
+                )}
+
+                {guestTypes.pwd > 0 && (
+                  <div className="mb-payment-row mb-discount-detail-row">
+                    <div className="mb-discount-detail-left">
+                      <span className="mb-discount-type-name">PWD</span>
+                      <span className="mb-discount-formula">
+                        {guestTypes.pwd} person{guestTypes.pwd > 1 ? 's' : ''} × {formatPrice(pwdDiscountPeso > 0 ? pwdDiscountPeso : 0)} off
+                      </span>
+                    </div>
+                    <span className={pwdDiscountPeso > 0 ? 'mb-discount-val' : 'mb-no-discount-val'}>
+                      {pwdDiscountPeso > 0 ? `− ${formatPrice(pwdDiscountTotal)}` : 'No discount'}
+                    </span>
+                  </div>
+                )}
+
+                {totalDiscount > 0 && (
+                  <div className="mb-payment-row mb-subtotal-row">
+                    <span><strong>Total Discount</strong></span>
+                    <span className="mb-discount-val"><strong>− {formatPrice(totalDiscount)}</strong></span>
+                  </div>
+                )}
+              </>
+            )}
+
+            {/* ── STEP 3: After discount ── */}
+            {totalDiscount > 0 && calculateNights() > 0 && (
+              <>
+                <div className="mb-calc-step-label" style={{ marginTop: 12 }}>Step 3 · After Discount</div>
+                <div className="mb-payment-row mb-computation">
+                  <span>{formatPrice(room.price * calculateNights())} − {formatPrice(totalDiscount)}</span>
+                  <span>= {formatPrice(Math.max(0, room.price * calculateNights() - totalDiscount))}</span>
                 </div>
               </>
             )}
+
+            {/* ── STEP 4: Day Tour ── */}
+            {dayTour > 0 && (
+              <>
+                <div className="mb-calc-step-label" style={{ marginTop: 12 }}>Step {totalDiscount > 0 ? 4 : 3} · Day Tour</div>
+                <div className="mb-payment-row">
+                  <span>Entrance fee / person</span>
+                  <span>{entranceFee > 0 ? formatPrice(entranceFee) : 'TBD'}</span>
+                </div>
+                <div className="mb-payment-row mb-computation">
+                  <span>✕ {dayTour} day tour guest{dayTour > 1 ? 's' : ''}</span>
+                  <span>= {entranceFee > 0 ? formatPrice(dayTourCost) : 'TBD'}</span>
+                </div>
+                <div className="mb-payment-row mb-computation">
+                  <span>＋ Added to room cost</span>
+                  <span>{entranceFee > 0 ? `+ ${formatPrice(dayTourCost)}` : 'TBD'}</span>
+                </div>
+              </>
+            )}
+
+            {/* ── GRAND TOTAL ── */}
+            <div className="mb-payment-divider"></div>
             <div className="mb-payment-row mb-total">
               <span>Total Payment</span>
-              <span>{formatPrice(room.price * (calculateNights() || 1))}</span>
+              <span>{formatPrice(Math.max(0, room.price * (calculateNights() || 1) - totalDiscount) + dayTourCost)}</span>
             </div>
             <p className="mb-payment-note">Full payment is required to confirm your booking.</p>
           </div>
@@ -240,10 +505,11 @@ const Booking = () => {
                   <button 
                     type="button" 
                     className="mb-counter-btn"
-                    onClick={() => setFormData(prev => ({ 
-                      ...prev, 
-                      guests: String(Math.max(1, parseInt(prev.guests) - 1)) 
-                    }))}
+                    onClick={() => {
+                      const newCount = Math.max(1, parseInt(formData.guests) - 1)
+                      setFormData(prev => ({ ...prev, guests: String(newCount) }))
+                      clampGuestTypes(newCount)
+                    }}
                   >
                     <i className="fas fa-minus"></i>
                   </button>
@@ -273,6 +539,7 @@ const Booking = () => {
                         className={`mb-guest-btn ${Number(formData.guests) === num ? 'active' : ''}`}
                         onClick={() => {
                           setFormData(prev => ({ ...prev, guests: String(num) }))
+                          clampGuestTypes(num)
                           setShowGuestsModal(false)
                         }}
                       >

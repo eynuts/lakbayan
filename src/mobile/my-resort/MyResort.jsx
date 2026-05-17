@@ -32,6 +32,11 @@ const MyResort = () => {
     longitude: null,
     entranceFee: ''
   })
+  const [discountSettings, setDiscountSettings] = useState({
+    matanda: '',
+    bata: '',
+    pwd: ''
+  })
   const [visibility, setVisibility] = useState({
     showMainPhoto: true,
     showDescription: true,
@@ -107,6 +112,11 @@ const MyResort = () => {
         longitude: baseProfile.longitude || null,
         entranceFee: baseProfile.entranceFee || ''
       })
+      setDiscountSettings({
+        matanda: baseProfile.discountSettings?.matanda ?? '',
+        bata: baseProfile.discountSettings?.bata ?? '',
+        pwd: baseProfile.discountSettings?.pwd ?? ''
+      })
       setVisibility({
         showMainPhoto: baseProfile.visibility?.showMainPhoto ?? true,
         showDescription: baseProfile.visibility?.showDescription ?? true,
@@ -147,6 +157,7 @@ const MyResort = () => {
         resortName: profileForm.resortName,
         resortProfile: {
           ...profileForm,
+          discountSettings,
           visibility
         }
       })
@@ -189,6 +200,7 @@ const MyResort = () => {
       await updateResortRecord({
         resortProfile: {
           ...nextProfile,
+          discountSettings,
           visibility
         }
       })
@@ -234,6 +246,7 @@ const MyResort = () => {
       await updateResortRecord({
         resortProfile: {
           ...nextProfile,
+          discountSettings,
           visibility
         }
       })
@@ -363,7 +376,30 @@ const MyResort = () => {
             <textarea value={profileForm.description} onChange={(e) => setProfileForm((p) => ({ ...p, description: e.target.value }))} placeholder="Description" rows={3}></textarea>
             <input value={profileForm.contactNumber} onChange={(e) => setProfileForm((p) => ({ ...p, contactNumber: e.target.value }))} placeholder="Contact Number" />
             <input value={profileForm.email} onChange={(e) => setProfileForm((p) => ({ ...p, email: e.target.value }))} placeholder="Email" />
-            <input value={profileForm.entranceFee} onChange={(e) => setProfileForm((p) => ({ ...p, entranceFee: e.target.value.replace(/[^0-9.]/g, '') }))} placeholder="Entrance Fee (PHP) - Optional" type="number" inputMode="decimal" />
+
+            {/* Entrance Fee - highlighted as Day Tour rate */}
+            <div className="mrm-entrance-fee-block">
+              <div className="mrm-entrance-fee-label">
+                <i className="fas fa-sun"></i>
+                <div>
+                  <span className="mrm-entrance-fee-title">Entrance Fee / Day Tour Rate</span>
+                  <span className="mrm-entrance-fee-hint">Shown to guests as the Day Tour price per person</span>
+                </div>
+              </div>
+              <div className="mrm-entrance-fee-input-row">
+                <span className="mrm-entrance-fee-peso">₱</span>
+                <input
+                  className="mrm-entrance-fee-input"
+                  value={profileForm.entranceFee}
+                  onChange={(e) => setProfileForm((p) => ({ ...p, entranceFee: e.target.value.replace(/[^0-9.]/g, '') }))}
+                  placeholder="0.00"
+                  type="number"
+                  inputMode="decimal"
+                  min="0"
+                />
+                <span className="mrm-entrance-fee-unit">per person</span>
+              </div>
+            </div>
             
             <div className="mrm-address-row">
               <input value={profileForm.address} onChange={(e) => setProfileForm((p) => ({ ...p, address: e.target.value }))} placeholder="Address" />
@@ -410,6 +446,48 @@ const MyResort = () => {
               )
             })}
           </div>
+        </section>
+
+        <section className="mrm-card">
+          <h3>Discount Settings</h3>
+          <p className="mrm-card-subtitle">Set a fixed peso discount per guest type. Leave blank for no discount.</p>
+          <div className="mrm-discount-grid">
+            {[
+              { key: 'matanda', label: 'Matanda', sublabel: 'Senior Citizen', icon: 'fa-person' },
+              { key: 'bata', label: 'Bata', sublabel: 'Children', icon: 'fa-child' },
+              { key: 'pwd', label: 'PWD', sublabel: 'Persons w/ Disability', icon: 'fa-wheelchair' }
+            ].map(({ key, label, sublabel, icon }) => (
+              <div key={key} className="mrm-discount-item">
+                <div className="mrm-discount-item-header">
+                  <i className={`fas ${icon}`}></i>
+                  <div>
+                    <span className="mrm-discount-label">{label}</span>
+                    <span className="mrm-discount-sublabel">{sublabel}</span>
+                  </div>
+                </div>
+                <div className="mrm-discount-input-wrap">
+                  <span className="mrm-discount-pct" style={{ order: -1, marginRight: '2px', marginLeft: 0 }}>₱</span>
+                  <input
+                    type="number"
+                    min="0"
+                    inputMode="decimal"
+                    placeholder="0"
+                    value={discountSettings[key]}
+                    onChange={(e) => {
+                      const val = e.target.value.replace(/[^0-9.]/g, '')
+                      if (val === '' || parseFloat(val) >= 0) {
+                        setDiscountSettings(prev => ({ ...prev, [key]: val }))
+                      }
+                    }}
+                  />
+                  <span className="mrm-discount-pct" style={{ fontSize: '0.7rem', color: '#64748b' }}>off / guest</span>
+                </div>
+              </div>
+            ))}
+          </div>
+          <button className="mrm-save mrm-discount-save" onClick={saveProfile} disabled={saving}>
+            {saving ? 'Saving...' : 'Save Discounts'}
+          </button>
         </section>
 
         <section className="mrm-card">

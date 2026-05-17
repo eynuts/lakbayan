@@ -62,6 +62,8 @@ const Rooms = () => {
             id: `${resortId}-${index}`,
             dbId: resortId,
             resortName: item.resortName || 'Unnamed Resort',
+            entranceFee: resortProfile.entranceFee || '',
+            discountSettings: resortProfile.discountSettings || {},
             resortAddress,
             resortLatitude: Number(resortProfile.latitude),
             resortLongitude: Number(resortProfile.longitude),
@@ -334,7 +336,9 @@ const Rooms = () => {
                 onClick={() => navigate('/booking', { state: { 
                   room: selectedRoom,
                   resortId: selectedRoom.dbId,
-                  resortName: selectedRoom.resortName
+                  resortName: selectedRoom.resortName,
+                  entranceFee: selectedRoom.entranceFee,
+                  discountSettings: selectedRoom.discountSettings
                 } })}
               >
                 Proceed to Booking

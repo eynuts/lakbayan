@@ -251,6 +251,28 @@ const Payment = () => {
     )
   }
 
+  // ─── Destructure all computation values from bookingData ───
+  const {
+    room,
+    nights,
+    roomSubtotal,
+    guestTypes = {},
+    matandaDiscountPeso = 0,
+    bataDiscountPeso    = 0,
+    pwdDiscountPeso     = 0,
+    matandaDiscountTotal = 0,
+    bataDiscountTotal    = 0,
+    pwdDiscountTotal     = 0,
+    totalDiscount        = 0,
+    dayTour              = 0,
+    entranceFee          = 0,
+    dayTourCost          = 0,
+    totalPrice
+  } = bookingData
+
+  const afterDiscount = Math.max(0, (roomSubtotal || room?.price * nights || 0) - totalDiscount)
+  const hasDiscounts = totalDiscount > 0
+
   return (
     <div className="mp-container">
       <header className="mp-header">
@@ -271,7 +293,7 @@ const Payment = () => {
               </span>
             </div>
             <p className="mp-balance-amount">{formatPrice(walletBalance)}</p>
-            <p className="mp-balance-required">Required: {formatPrice(bookingData.totalPrice)}</p>
+            <p className="mp-balance-required">Required: {formatPrice(totalPrice)}</p>
           </div>
         </section>
 
@@ -287,7 +309,7 @@ const Payment = () => {
             <i className="fas fa-exclamation-triangle"></i>
             <div className="mp-warning-content">
               <p><strong>Insufficient Wallet Balance</strong></p>
-              <p>You need {formatPrice(bookingData.totalPrice - walletBalance)} more to complete this booking.</p>
+              <p>You need {formatPrice(totalPrice - walletBalance)} more to complete this booking.</p>
               <button
                 className="mp-topup-btn"
                 onClick={() => navigate('/topup', { replace: true })}
@@ -304,13 +326,14 @@ const Payment = () => {
             Booking Summary
           </h3>
           <div className="mp-summary-card">
+            {/* Resort & Room Info */}
             <div className="mp-summary-row">
               <span>Resort</span>
               <strong>{bookingData.resortName}</strong>
             </div>
             <div className="mp-summary-row">
               <span>Room</span>
-              <strong>{bookingData.room?.title}</strong>
+              <strong>{room?.title}</strong>
             </div>
             <div className="mp-summary-row">
               <span>Check-in</span>
@@ -321,17 +344,122 @@ const Payment = () => {
               <span>{bookingData.checkOut ? new Date(bookingData.checkOut).toLocaleDateString('en-PH') : 'Not set'}</span>
             </div>
             <div className="mp-summary-row">
-              <span>Nights</span>
-              <span>{bookingData.nights}</span>
+              <span>Duration</span>
+              <span>{nights} night{nights !== 1 ? 's' : ''}</span>
             </div>
             <div className="mp-summary-row">
               <span>Guests</span>
               <span>{bookingData.guests} guest(s)</span>
             </div>
+
+            {/* Guest type breakdown */}
+            {(guestTypes.matanda > 0 || guestTypes.bata > 0 || guestTypes.pwd > 0) && (
+              <div className="mp-guest-breakdown">
+                {guestTypes.matanda > 0 && <span>Matanda: {guestTypes.matanda}</span>}
+                {guestTypes.bata > 0 && <span>Bata: {guestTypes.bata}</span>}
+                {guestTypes.pwd > 0 && <span>PWD: {guestTypes.pwd}</span>}
+              </div>
+            )}
+
+            <div className="mp-summary-divider"></div>
+
+            {/* ── Step-by-step computation ── */}
+            <p className="mp-computation-label">
+              <i className="fas fa-calculator"></i> Computation
+            </p>
+
+            {/* Step 1: Room rate */}
+            <div className="mp-comp-row mp-comp-step">
+              <span>Room rate per night</span>
+              <span>{formatPrice(room?.price)}</span>
+            </div>
+
+            {/* Step 2: × nights */}
+            <div className="mp-comp-row mp-comp-math">
+              <span>{formatPrice(room?.price)} × {nights} night{nights !== 1 ? 's' : ''}</span>
+              <span>= {formatPrice(roomSubtotal || room?.price * nights)}</span>
+            </div>
+
+            {/* Step 3: Room subtotal */}
+            <div className="mp-comp-row mp-comp-subtotal">
+              <span>Room Subtotal</span>
+              <span>{formatPrice(roomSubtotal || room?.price * nights)}</span>
+            </div>
+
+            {/* Step 4: Discounts (if any) */}
+            {guestTypes.matanda > 0 && matandaDiscountPeso > 0 && (
+              <div className="mp-comp-row mp-comp-discount">
+                <span>
+                  Matanda discount<br />
+                  <em className="mp-comp-formula">{guestTypes.matanda} guest × {formatPrice(matandaDiscountPeso)} discount</em>
+                </span>
+                <span className="mp-discount-val">− {formatPrice(matandaDiscountTotal)}</span>
+              </div>
+            )}
+            {guestTypes.bata > 0 && bataDiscountPeso > 0 && (
+              <div className="mp-comp-row mp-comp-discount">
+                <span>
+                  Bata discount<br />
+                  <em className="mp-comp-formula">{guestTypes.bata} guest × {formatPrice(bataDiscountPeso)} discount</em>
+                </span>
+                <span className="mp-discount-val">− {formatPrice(bataDiscountTotal)}</span>
+              </div>
+            )}
+            {guestTypes.pwd > 0 && pwdDiscountPeso > 0 && (
+              <div className="mp-comp-row mp-comp-discount">
+                <span>
+                  PWD discount<br />
+                  <em className="mp-comp-formula">{guestTypes.pwd} guest × {formatPrice(pwdDiscountPeso)} discount</em>
+                </span>
+                <span className="mp-discount-val">− {formatPrice(pwdDiscountTotal)}</span>
+              </div>
+            )}
+
+            {/* Step 5: Total discount */}
+            {hasDiscounts && (
+              <>
+                <div className="mp-comp-row mp-comp-math">
+                  <span>Total discount</span>
+                  <span className="mp-discount-val">− {formatPrice(totalDiscount)}</span>
+                </div>
+                <div className="mp-comp-row mp-comp-math">
+                  <span>{formatPrice(roomSubtotal || room?.price * nights)} − {formatPrice(totalDiscount)}</span>
+                  <span>= {formatPrice(afterDiscount)}</span>
+                </div>
+                <div className="mp-comp-row mp-comp-subtotal">
+                  <span>After Discount</span>
+                  <span>{formatPrice(afterDiscount)}</span>
+                </div>
+              </>
+            )}
+
+            {/* Step 6: Day Tour */}
+            {dayTour > 0 && (
+              <div className="mp-comp-row mp-comp-daytour">
+                <span>
+                  Day Tour<br />
+                  <em className="mp-comp-formula">{dayTour} pax × {entranceFee > 0 ? formatPrice(entranceFee) : '(rate TBD)'}</em>
+                </span>
+                <span>+ {entranceFee > 0 ? formatPrice(dayTourCost) : 'TBD'}</span>
+              </div>
+            )}
+
+            {/* Step 7: Grand total equation */}
+            {(hasDiscounts || dayTour > 0) && (
+              <div className="mp-comp-row mp-comp-math">
+                <span>
+                  {hasDiscounts ? formatPrice(afterDiscount) : formatPrice(roomSubtotal || room?.price * nights)}
+                  {dayTour > 0 && entranceFee > 0 ? ` + ${formatPrice(dayTourCost)}` : ''}
+                </span>
+                <span>= {formatPrice(totalPrice)}</span>
+              </div>
+            )}
+
+            {/* Grand Total */}
             <div className="mp-summary-divider"></div>
             <div className="mp-summary-row total">
-              <span>Total Amount</span>
-              <strong>{formatPrice(bookingData.totalPrice)}</strong>
+              <span>Total Amount to Pay</span>
+              <strong>{formatPrice(totalPrice)}</strong>
             </div>
           </div>
         </section>

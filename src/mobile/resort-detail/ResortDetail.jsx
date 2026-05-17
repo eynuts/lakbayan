@@ -145,6 +145,7 @@ const ResortDetail = () => {
         email: profile.email || item?.email || item?.ownerEmail || '',
         website: profile.website || '',
         entranceFee: profile.entranceFee || '',
+        discountSettings: profile.discountSettings || {},
         latitude: Number(profile.latitude),
         longitude: Number(profile.longitude),
         mainPhoto,
@@ -554,6 +555,8 @@ const ResortDetail = () => {
                       },
                       resortName: resort.name,
                       resortId: resortId,
+                      entranceFee: resort.entranceFee || '',
+                      discountSettings: resort.discountSettings || {},
                     }
                   })
                 }}

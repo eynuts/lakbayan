@@ -1031,3 +1031,202 @@
 .mrm-amenity-chip:hover:not(.active) {
     background: #e2e8f0;
 }
+
+/* ═══════════════ Discount Settings ═══════════════ */
+.mrm-discount-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.mrm-discount-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: #f8fbff;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 16px;
+    padding: 12px 14px;
+    transition: border-color 0.2s;
+}
+
+.mrm-discount-item:focus-within {
+    border-color: #0a84ff;
+    background: #fff;
+}
+
+.mrm-discount-item-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    min-width: 0;
+}
+
+.mrm-discount-item-header > i {
+    width: 38px;
+    height: 38px;
+    background: rgba(10, 132, 255, 0.1);
+    color: #0a84ff;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.mrm-discount-item-header > div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.mrm-discount-label {
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.mrm-discount-sublabel {
+    font-size: 0.7rem;
+    color: #64748b;
+    font-weight: 600;
+}
+
+.mrm-discount-input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.mrm-discount-input-wrap input {
+    width: 68px !important;
+    text-align: center;
+    font-size: 1rem !important;
+    font-weight: 800 !important;
+    color: #0a84ff !important;
+    border: 1.5px solid rgba(10, 132, 255, 0.25) !important;
+    border-radius: 12px !important;
+    padding: 8px 6px !important;
+    background: #fff !important;
+}
+
+.mrm-discount-input-wrap input:focus {
+    outline: none;
+    border-color: #0a84ff !important;
+    box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.1);
+}
+
+.mrm-discount-pct {
+    font-size: 1rem;
+    font-weight: 800;
+    color: #64748b;
+}
+
+.mrm-discount-save {
+    width: 100% !important;
+    height: auto !important;
+    padding: 13px !important;
+    margin-top: 4px;
+    font-size: 0.88rem !important;
+    border-radius: 14px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* ═══════════════ Entrance Fee Block ═══════════════ */
+.mrm-entrance-fee-block {
+    background: linear-gradient(135deg, #fffbeb, #fef3c7);
+    border: 1.5px solid #fcd34d;
+    border-radius: 14px;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.mrm-entrance-fee-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.mrm-entrance-fee-label > i {
+    width: 34px;
+    height: 34px;
+    background: #f59e0b;
+    color: #fff;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+
+.mrm-entrance-fee-label > div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.mrm-entrance-fee-title {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: #78350f;
+}
+
+.mrm-entrance-fee-hint {
+    font-size: 0.68rem;
+    color: #92400e;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.mrm-entrance-fee-input-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    border: 1.5px solid #fcd34d;
+    border-radius: 12px;
+    padding: 2px 12px 2px 10px;
+}
+
+.mrm-entrance-fee-peso {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #d97706;
+    flex-shrink: 0;
+}
+
+.mrm-entrance-fee-input {
+    flex: 1;
+    border: none !important;
+    background: transparent !important;
+    font-size: 1.1rem !important;
+    font-weight: 800 !important;
+    color: #78350f !important;
+    padding: 10px 4px !important;
+    min-width: 0;
+}
+
+.mrm-entrance-fee-input:focus {
+    outline: none;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+.mrm-entrance-fee-unit {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #92400e;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
