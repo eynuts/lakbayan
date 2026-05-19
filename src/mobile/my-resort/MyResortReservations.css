@@ -1,325 +1,350 @@
 .mres-container {
-  font-family: var(--font-montserrat);
-  background: #f8fafc;
-  min-height: 100vh;
-  max-width: 480px;
-  margin: 0 auto;
-  padding-bottom: 98px;
-  color: #0f172a;
+    font-family: var(--font-montserrat);
+    background: #f8fafc;
+    min-height: 100vh;
+    max-width: 480px;
+    margin: 0 auto;
+    padding-bottom: 98px;
+    color: #0f172a;
 }
 
 .mres-header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 20px;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(148, 163, 184, 0.15);
 }
 
 .mres-header h1 {
-  margin: 0;
-  font-size: 1rem;
-  font-weight: 800;
-  font-family: var(--font-playfair);
-  letter-spacing: -0.01em;
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 800;
+    font-family: var(--font-playfair);
+    letter-spacing: -0.01em;
 }
 
 .mres-back {
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  background: #fff;
-  color: #0a84ff;
-  display: grid;
-  place-items: center;
-  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
-  cursor: pointer;
-  transition: all 0.2s ease;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    background: #fff;
+    color: #0a84ff;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 .mres-back:hover {
-  background: rgba(10, 132, 255, 0.08);
+    background: rgba(10, 132, 255, 0.08);
 }
 
 .mres-badge {
-  background: #0a84ff;
-  color: #fff;
-  font-size: 0.75rem;
-  font-weight: 800;
-  padding: 4px 10px;
-  border-radius: 8px;
-  min-width: 28px;
-  text-align: center;
+    background: #0a84ff;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 8px;
+    min-width: 28px;
+    text-align: center;
 }
 
 .mres-main {
-  padding: 16px 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .mres-message {
-  padding: 12px 16px;
-  border-radius: 12px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  animation: slideDown 0.3s ease;
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    animation: slideDown 0.3s ease;
 }
 
 @keyframes slideDown {
-  from {
-    transform: translateY(-16px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+    from {
+        transform: translateY(-16px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 .mres-message-success {
-  background: #ecfdf5;
-  color: #065f46;
-  border: 1px solid #a7f3d0;
+    background: #ecfdf5;
+    color: #065f46;
+    border: 1px solid #a7f3d0;
 }
 
 .mres-message-error {
-  background: #fef2f2;
-  color: #7f1d1d;
-  border: 1px solid #fecaca;
+    background: #fef2f2;
+    color: #7f1d1d;
+    border: 1px solid #fecaca;
 }
 
 /* List */
 .mres-list {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
 }
 
 /* Card */
 .mres-card {
-  background: #fff;
-  border-radius: 20px;
-  border: 1px solid rgba(148, 163, 184, 0.12);
-  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.05);
-  overflow: hidden;
-  transition: all 0.3s ease;
+    background: #fff;
+    border-radius: 20px;
+    border: 1px solid rgba(148, 163, 184, 0.12);
+    box-shadow: 0 6px 16px rgba(15, 23, 42, 0.05);
+    overflow: hidden;
+    transition: all 0.3s ease;
 }
 
 .mres-card:hover {
-  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.1);
-  transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.1);
+    transform: translateY(-2px);
 }
 
 /* Card Header */
 .mres-card-header {
-  padding: 16px;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.08);
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 12px;
+    padding: 16px;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
 }
 
 .mres-guest-info {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
 }
 
 .mres-guest-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #0a84ff, #4d9bff);
-  color: #fff;
-  display: grid;
-  place-items: center;
-  font-size: 1.1rem;
-  flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #0a84ff, #4d9bff);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
 }
 
 .mres-guest-details h3 {
-  margin: 0 0 2px 0;
-  font-size: 0.95rem;
-  font-weight: 800;
-  color: #0f172a;
+    margin: 0 0 2px 0;
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #0f172a;
 }
 
 .mres-guest-details p {
-  margin: 0;
-  font-size: 0.75rem;
-  color: #64748b;
-  font-weight: 600;
+    margin: 0;
+    font-size: 0.75rem;
+    color: #64748b;
+    font-weight: 600;
 }
 
 .mres-status {
-  display: inline-block;
-  font-size: 0.65rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  padding: 4px 10px;
-  border-radius: 6px;
-  letter-spacing: 0.04em;
-  flex-shrink: 0;
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 6px;
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
 }
 
 .mres-status.pending {
-  background: #fffbeb;
-  color: #b45309;
+    background: #fffbeb;
+    color: #b45309;
 }
 
 .mres-status.upcoming {
-  background: #eff6ff;
-  color: #1d4ed8;
+    background: #eff6ff;
+    color: #1d4ed8;
 }
 
 .mres-status.confirmed {
-  background: #ecfdf5;
-  color: #065f46;
+    background: #ecfdf5;
+    color: #065f46;
 }
 
 .mres-status.paid {
-  background: #ecfdf5;
-  color: #065f46;
+    background: #ecfdf5;
+    color: #065f46;
 }
 
 .mres-status.refunded {
-  background: #f0fdf4;
-  color: #14532d;
+    background: #f0fdf4;
+    color: #14532d;
 }
 
 /* Card Body */
 .mres-card-body {
-  padding: 16px;
+    padding: 16px;
 }
 
 .mres-detail-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
 }
 
 .mres-detail {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
 }
 
 .mres-detail i {
-  color: #0a84ff;
-  font-size: 0.95rem;
-  margin-top: 2px;
-  flex-shrink: 0;
-  width: 18px;
+    color: #0a84ff;
+    font-size: 0.95rem;
+    margin-top: 2px;
+    flex-shrink: 0;
+    width: 18px;
+}
+
+/* Full-width detail row (spans both grid columns) */
+.mres-detail-full {
+    grid-column: 1 / -1;
+}
+
+/* Discounted guest pills */
+.mres-discount-breakdown {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 2px;
+}
+
+.mres-discount-breakdown span {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #16a34a;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 6px;
+    padding: 2px 8px;
 }
 
 .mres-label {
-  display: block;
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: #94a3b8;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  margin-bottom: 2px;
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 2px;
 }
 
 .mres-value {
-  display: block;
-  font-size: 0.88rem;
-  font-weight: 700;
-  color: #0f172a;
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #0f172a;
 }
 
 /* Card Actions */
 .mres-card-actions {
-  padding: 12px 16px;
-  background: #f8fafc;
-  border-top: 1px solid rgba(148, 163, 184, 0.08);
-  display: flex;
-  gap: 10px;
+    padding: 12px 16px;
+    background: #f8fafc;
+    border-top: 1px solid rgba(148, 163, 184, 0.08);
+    display: flex;
+    gap: 10px;
 }
 
 .mres-action-btn {
-  flex: 1;
-  padding: 10px 12px;
-  border-radius: 10px;
-  border: none;
-  font-size: 0.8rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  font-family: var(--font-montserrat);
+    flex: 1;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: none;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-family: var(--font-montserrat);
 }
 
 .mres-refund-btn {
-  background: linear-gradient(135deg, #3b82f6, #60a5fa);
-  color: #fff;
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+    background: linear-gradient(135deg, #3b82f6, #60a5fa);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
 }
 
 .mres-refund-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.3);
 }
 
 .mres-delete-btn {
-  background: linear-gradient(135deg, #ef4444, #f87171);
-  color: #fff;
-  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+    background: linear-gradient(135deg, #ef4444, #f87171);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
 }
 
 .mres-delete-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(239, 68, 68, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(239, 68, 68, 0.3);
 }
 
 .mres-action-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 .mres-action-btn i {
-  font-size: 0.85rem;
+    font-size: 0.85rem;
 }
 
 /* Empty State */
 .mres-empty {
-  text-align: center;
-  padding: 60px 20px;
-  color: #94a3b8;
+    text-align: center;
+    padding: 60px 20px;
+    color: #94a3b8;
 }
 
 .mres-empty-icon {
-  font-size: 3.5rem;
-  color: #cbd5e1;
-  margin-bottom: 16px;
+    font-size: 3.5rem;
+    color: #cbd5e1;
+    margin-bottom: 16px;
 }
 
 .mres-empty h3 {
-  margin: 0 0 8px 0;
-  font-size: 1.1rem;
-  font-weight: 800;
-  color: #64748b;
+    margin: 0 0 8px 0;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #64748b;
 }
 
 .mres-empty p {
-  margin: 0;
-  font-size: 0.9rem;
-  color: #94a3b8;
+    margin: 0;
+    font-size: 0.9rem;
+    color: #94a3b8;
 }

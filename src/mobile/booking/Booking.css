@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
 
 .mb-container {
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: "Plus Jakarta Sans", sans-serif;
     background-color: #f8fafc;
     min-height: 100vh;
     max-width: 480px;
@@ -16,8 +16,20 @@
 }
 
 /* Animations */
-@keyframes mbSlideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-.animate-slide-up { animation: mbSlideUp 0.4s ease backwards; animation-delay: var(--delay, 0s); }
+@keyframes mbSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.animate-slide-up {
+    animation: mbSlideUp 0.4s ease backwards;
+    animation-delay: var(--delay, 0s);
+}
 
 /* Header */
 .mb-header {
@@ -33,7 +45,7 @@
     width: 100%;
     max-width: 480px;
     z-index: 100;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
 }
 
 .mb-back-btn {
@@ -66,7 +78,7 @@
     background: #ffffff;
     padding: 12px;
     border-radius: 20px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.04);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
     gap: 16px;
     align-items: center;
 }
@@ -122,7 +134,7 @@
     padding: 20px;
     border-radius: 20px;
     margin-bottom: 20px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
 }
 
 .mb-section-title {
@@ -335,7 +347,7 @@
     width: 100%;
     padding: 20px 24px;
     background: #ffffff;
-    box-shadow: 0 -4px 20px rgba(0,0,0,0.05);
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
     z-index: 100;
 }
 
@@ -370,7 +382,7 @@
     max-width: 480px;
     border-radius: 32px 32px 0 0;
     padding: 24px;
-    box-shadow: 0 -10px 40px rgba(0,0,0,0.1);
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.1);
 }
 
 .mb-modal-header {
@@ -676,6 +688,51 @@
 
 .mb-daytour-header .mb-gt-count {
     color: #78350f;
+}
+
+/* Day Tour row inside guest type breakdown */
+.mb-daytour-row {
+    background: linear-gradient(135deg, #fffbeb, #fef9ec);
+    border-bottom: 1px dashed #fcd34d !important;
+}
+
+.mb-daytour-row .mb-guest-type-info > i.mb-daytour-icon {
+    background: #f59e0b;
+    color: #fff;
+}
+
+.mb-daytour-row .mb-gt-btn {
+    border-color: #fcd34d;
+    color: #d97706;
+}
+
+.mb-daytour-row .mb-gt-btn:active {
+    background: #fef3c7;
+    border-color: #f59e0b;
+}
+
+.mb-daytour-row .mb-gt-count {
+    color: #78350f;
+}
+
+/* Entrance fee badge for Day Tour row */
+.mb-guest-daytour-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 3px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #92400e;
+    background: #fef3c7;
+    border: 1px solid #fcd34d;
+    border-radius: 6px;
+    padding: 2px 7px;
+}
+
+.mb-guest-daytour-badge i {
+    font-size: 0.6rem;
+    color: #d97706;
 }
 
 /* Discount badge under guest type name */
